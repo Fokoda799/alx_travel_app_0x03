@@ -1,27 +1,32 @@
-# Core Django
-Django
-djangorestframework
-
-# Database
-mysqlclient
-
-# CORS handling
-django-cors-headers
-
-# Environment variables
-django-environ
-
-# API documentation
-drf-yasg
-
-# Asynchronous tasks
+amqp
+asgiref
+billiard
 celery
-redis
-# Development tools
+certifi
+charset-normalizer
+click
+colorama
+Django
+django-admin
+django-cors-headers
+django-environ
 django-extensions
-ipython
-
-gunicorn
-psycopg2-binary
-dj-database-url
-
+djangorestframework
+djangorestframework_simplejwt
+dnspython
+drf-yasg
+idna
+kombu
+mysqlclient
+packaging
+pillow
+PyJWT
+pytz
+redis
+requests
+six
+sqlparse
+tzdata
+urllib3
+vine
+requests
