@@ -24,7 +24,7 @@ SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 DEBUG = env.bool("DEBUG", default=True)
 
 # Allowed hosts
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "Abdellah799.pythonanywhere.com"])
 
 # Custom user model
 AUTH_USER_MODEL = "listings.CustomUser"
