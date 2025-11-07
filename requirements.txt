@@ -30,3 +30,8 @@ tzdata
 urllib3
 vine
 requests
+dj_database_url
+redis
+amqp
+gunicorn
+psycopg2-binary
