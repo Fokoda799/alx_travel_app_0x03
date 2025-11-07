@@ -160,14 +160,15 @@ CORS_ALLOWED_ORIGINS = env.list(
 # ---------------------------------------------------------------------
 
 CELERY_BROKER_URL = os.environ.get(
-    "CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//"
+    "CELERY_BROKER_URL", "redis://redis-14778.c232.us-east-1-2.ec2.redns.redis-cloud.com:14778"
 )
-CELERY_RESULT_BACKEND = "rpc://"
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_RESULT_EXPIRES = 3600
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
+USE_CELERY = True
 
 # ---------------------------------------------------------------------
 # EMAIL CONFIGURATION
