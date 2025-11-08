@@ -1,0 +1,27 @@
+services:
+  - name: web
+    type: web
+    instance_type: free
+    build:
+      buildCommand: pip install -r requirements.txt
+    run: gunicorn alx_travel_app:application --bind 0.0.0.0:8000
+    ports:
+      - port: 8000
+        protocol: http
+    env:
+      - key: DATABASE_URL
+        value: ${{ secrets.DATABASE_URL }}
+      - key: RABBITMQ_URL
+        value: ${{ secrets.RABBITMQ_URL }}
+  
+  - name: worker
+    type: worker
+    instance_type: free
+    build:
+      buildCommand: pip install -r requirements.txt
+    run: celery -A alx_travel_app worker --loglevel=info --pool=solo
+    env:
+      - key: DATABASE_URL
+        value: ${{ secrets.DATABASE_URL }}
+      - key: RABBITMQ_URL
+        value: ${{ secrets.RABBITMQ_URL }}
