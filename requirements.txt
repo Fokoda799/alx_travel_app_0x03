@@ -35,3 +35,5 @@ redis
 amqp
 gunicorn
 psycopg2-binary
+django-celery-results
+whitenoise

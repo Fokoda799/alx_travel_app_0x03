@@ -83,10 +83,15 @@ WSGI_APPLICATION = "alx_travel_app.wsgi.application"
 
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-        "default": dj_database_url.config(
-            default=os.environ.get("DATABASE_URL"), conn_max_age=600
-        )
-    }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', default='railway'),
+            'USER': os.environ.get('DB_USER', default='postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', default=''),
+            'HOST': os.environ.get('DB_HOST', default='localhost'),
+            'PORT': os.environ.get('DB_PORT', default='5432'),
+        }
+}
 else:
     DATABASES = {
         "default": {
@@ -159,16 +164,14 @@ CORS_ALLOWED_ORIGINS = env.list(
 # CELERY CONFIGURATION
 # ---------------------------------------------------------------------
 
-CELERY_BROKER_URL = os.environ.get(
-    "CELERY_BROKER_URL", "redis://redis-14778.c232.us-east-1-2.ec2.redns.redis-cloud.com:14778"
-)
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-CELERY_RESULT_EXPIRES = 3600
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
+CELERY_BROKER_URL = os.environ.get('RABBITMQ_URL', default='amqp://guest:guest@localhost:5672//')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', default=None)  # Optional
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-USE_CELERY = True
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # ---------------------------------------------------------------------
 # EMAIL CONFIGURATION
@@ -273,3 +276,16 @@ TEMPLATES = [
     },
 ]
 
+CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'PERSIST_AUTH': True,
+}
