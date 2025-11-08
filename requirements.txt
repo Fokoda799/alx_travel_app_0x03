@@ -17,7 +17,6 @@ dnspython
 drf-yasg
 idna
 kombu
-mysqlclient
 packaging
 pillow
 PyJWT
